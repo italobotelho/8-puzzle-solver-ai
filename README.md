@@ -91,14 +91,9 @@ Em testes realizados, o algoritmo **BFS** encontrou soluções de 15 passos em m
 
 > **Nota:** A complexidade do 8-puzzle é de $9!/2 = 181.440$ estados possíveis. Este software é capaz de navegar por esse espaço de forma eficiente.
 
-
-| Sucesso na Busca | Dashboard de Performance |
-| :---: | :---: |
-| ![Vitória](./assets/vitoria.png) | ![Métricas](./assets/metricas.png) |
-
 ---
 
 ## 🎓 Autor e Créditos
 
-Desenvolvido por **Ítalo Botelho** como projeto acadêmico na **PUC-Campinas**.  
+Desenvolvido por **Ítalo Botelho** como projeto acadêmico na **PUC-Campinas**.
 Focado na intersecção entre algoritmos de baixo nível e Inteligência Artificial.
