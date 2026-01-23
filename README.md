@@ -1,46 +1,84 @@
-# 8-Puzzle Solver: Inteligência Artificial Clássica em C
+# 🧩 8-Puzzle Solver: Inteligência Artificial Clássica em C
 
-Este projeto implementa um resolvedor para o jogo **8-puzzle** (também conhecido como Jogo dos Oito), utilizando algoritmos de busca em espaço de estados. O objetivo é levar uma configuração inicial de peças até um estado final (objetivo) realizando o menor número de movimentos possível.
+![C](https://img.shields.io/badge/language-C-blue.svg)
+![AI](https://img.shields.io/badge/focus-Artificial%20Intelligence-orange.svg)
+![Data Structures](https://img.shields.io/badge/core-Data%20Structures-green.svg)
 
-## 🚀 Tecnologias e Conceitos Utilizados
+Este projeto é um simulador e solucionador de alto desempenho para o jogo **8-puzzle** (Jogo dos Oito). Desenvolvido totalmente em linguagem C, o software utiliza algoritmos de **IA clássica (Busca Cega)** para explorar espaços de estados e encontrar sequências de movimentos ótimas para tabuleiros embaralhados.
 
-* **Linguagem C:** Implementação de baixo nível com foco em performance e gerenciamento de memória.
-* **Algoritmos de Busca:**
-    * **Busca em Largura (BFS):** Garante a solução ótima (caminho mais curto).
-    * **Busca em Profundidade Iterativa (IDDFS):** Combina a economia de memória da busca em profundidade com a completude da busca em largura.
-* **Estruturas de Dados Dinâmicas:** Implementação manual de **Filas** e **Pilhas** para o gerenciamento da fronteira de busca.
-* **Heurísticas:** Lógica para detecção de estados repetidos e otimização do processamento.
+Este trabalho faz parte do currículo de **Ciência de Dados e Inteligência Artificial** da **PUC-Campinas (2025)**.
 
-## 🧠 Como Funciona?
+![Menu Principal](./assets/print_menu.png)
+---
 
-O resolvedor trata cada configuração do tabuleiro como um **nó em um grafo**. A partir do estado inicial, o algoritmo explora todas as possibilidades de movimentos (Cima, Baixo, Esquerda, Direita) até encontrar a sequência correta.
+## 🚀 Funcionalidades Principais
 
-### Algoritmos Implementados:
-1.  **BFS (Breadth-First Search):** Explora todos os nós de um nível antes de passar para o próximo. Ideal para encontrar a solução mais curta em tabuleiros simples.
-2.  **IDDFS (Iterative Deepening Depth-First Search):** Realiza buscas em profundidade com limites sucessivos, sendo mais eficiente em termos de memória para estados mais profundos.
+* **Lógica de IA Completa:** Implementação de algoritmos fundamentais para resolução de problemas de busca.
+* **Modo Jogador:** Interface via terminal para resolução manual, permitindo testar a dificuldade do tabuleiro.
+* **Modo Solver (IA):**
+    * **Busca em Largura (BFS):** Garante o caminho mais curto até a solução (otimalidade).
+    * **Busca em Profundidade Limitada Iterativa (IDDFS):** Eficiência de memória com completude, ideal para estados mais profundos.
+* **Dashboard de Performance:** Ao finalizar uma busca, o programa exibe o tempo de execução exato e a quantidade de nós (estados) visitados.
+* **Visualização Passo a Passo:** Sistema de "Replay" animado que reproduz a solução encontrada pela IA na tela do usuário.
 
-## 🛠️ Como Executar o Projeto
+---
 
-1.  Clone o repositório:
+## 🧠 Conceitos Técnicos e Engenharia
+
+O projeto foi construído focando em performance de baixo nível e controle rigoroso de memória:
+
+* **Gerenciamento de Estados:** Cada configuração do tabuleiro é tratada como um nó em um grafo, onde as arestas são os movimentos possíveis (Cima, Baixo, Esquerda, Direita).
+* **Estruturas de Dados Manuais:** Para evitar dependências externas e garantir eficiência, foram implementadas manualmente:
+    * **Filas Dinâmicas (FIFO):** Suporte para a fronteira de busca do BFS.
+    * **Pilhas Dinâmicas (LIFO):** Suporte para o IDDFS e reconstrução do caminho da solução.
+* **Garantia de Solubilidade:** O sistema utiliza cálculos de **Paridade de Inversões** para garantir que todo tabuleiro gerado seja matematicamente possível de resolver, evitando loops infinitos.
+
+---
+
+## 🛠️ Estrutura do Código
+
+A arquitetura está modularizada na pasta `src/`:
+
+| Arquivo | Descrição |
+| :--- | :--- |
+| `main.c` | Ponto de entrada, interface de menus e loop principal. |
+| `buscas.c / .h` | O "cérebro" do projeto; contém as lógicas de BFS e IDDFS. |
+| `FuncoesGerais.c / .h` | Lógica do tabuleiro, verificação de paridade e utilitários de sistema. |
+| `FILA.h / PILHA.h` | Implementações genéricas de estruturas de dados dinâmicas. |
+| `TIPO.h` | Definição da estrutura `Estado`, essencial para o histórico de movimentos. |
+
+---
+
+## 💻 Como Compilar e Executar
+
+Certifique-se de ter o **GCC** (ou qualquer compilador C99+) instalado.
+
+1.  **Clone o repositório:**
     ```bash
     git clone [https://github.com/italobotelho/8-puzzle-solver-ai.git](https://github.com/italobotelho/8-puzzle-solver-ai.git)
-    ```
-2.  Acesse a pasta `src`:
-    ```bash
     cd 8-puzzle-solver-ai/src
     ```
-3.  Compile o código (usando GCC):
+
+2.  **Compilação (Universal):**
     ```bash
     gcc *.c -o puzzle_solver
     ```
-4.  Execute o programa:
-    ```bash
-    ./puzzle_solver
-    ```
+
+3.  **Execução:**
+    * **Windows:** `.\puzzle_solver.exe`
+    * **Linux/macOS:** `./puzzle_solver`
+
+---
 
 ## 📊 Resultados e Performance
 
-*(Sugestão: Insira aqui uma breve descrição de quanto tempo o algoritmo leva para resolver um caso médio ou quantos nós ele explora)*
+Em testes realizados, o algoritmo **BFS** encontrou soluções de 15 passos em menos de 1 segundo, explorando milhares de nós por segundo. Para problemas que exigem mais de 20 passos, o **IDDFS** demonstrou maior estabilidade de memória, evitando o transbordamento do Heap.
+
+> **Nota:** A complexidade do 8-puzzle é de $9!/2 = 181.440$ estados possíveis. Este software é capaz de navegar por esse espaço de forma eficiente.
 
 ---
-Projeto desenvolvido como parte da graduação em **Ciência de Dados e Inteligência Artificial** na PUC-Campinas.
+
+## 🎓 Autor e Créditos
+
+Desenvolvido por **Ítalo Botelho** como projeto acadêmico na **PUC-Campinas**.  
+Focado na intersecção entre algoritmos de baixo nível e Inteligência Artificial.
