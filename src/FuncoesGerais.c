@@ -234,22 +234,43 @@ int MenuPrincipalInterativo() {
     int posicao = 0; 
     while (1) {
         limpar_tela();
-        printf("=== 8-PUZZLE SOLVER ===\n\n");
-        printf("%s 1. Modo Jogador (Manual)\n", (posicao == 0) ? "->" : "  ");
-        printf("%s 2. Modo IA (Automatico)\n", (posicao == 1) ? "->" : "  ");
-        printf("%s 0. Sair\n", (posicao == 2) ? "->" : "  ");
+        printf(CYAN BOLD);
+        printf("     ___        ____                _      \n");
+        printf("    ( _ )      |  _ \\ _   _ _______| | ___ \n");
+        printf("    / _ \\ _____| |_) | | | |_  /_  / |/ _ \\\n");
+        printf("   | (_) |_____|  __/| |_| |/ / / /| |  __/\n");
+        printf("    \\___/      |_|    \\__,_/___/___|_|\\___|\n");
+        printf(RESET);
+
+        printf("\n   " BLUE "+------------------------------------------+" RESET "\n");
+        printf("   " BLUE "|" RESET "              " BOLD "MENU DE OPCOES" RESET "              " BLUE "|" RESET "\n");
+        printf("   " BLUE "+------------------------------------------+" RESET "\n");
         
+        // Cada linha abaixo tem exatamente a mesma quantidade de espaços internos
+        printf("   " BLUE "|" RESET "  %s [" YELLOW "1" RESET "] JOGAR MANUALMENTE                " BLUE "|" RESET "\n", (posicao == 0) ? BOLD CYAN "->" RESET : "  ");
+        printf("   " BLUE "|" RESET "  %s [" YELLOW "2" RESET "] RESOLVER AUTOMATICO (IA)         " BLUE "|" RESET "\n", (posicao == 1) ? BOLD CYAN "->" RESET : "  ");
+        printf("   " BLUE "|" RESET "  %s [" RED "0" RESET "] SAIR DO JOGO                     " BLUE "|" RESET "\n", (posicao == 2) ? BOLD CYAN "->" RESET : "  ");
+        
+        printf("   " BLUE "+------------------------------------------+" RESET "\n");
+        printf("\n   " CYAN ">> Use as setas e aperte ENTER ou digite o indice correspondente: " RESET);
+
         int tecla = _getch();
-        if (tecla == 224) {
+        if (tecla == 0 || tecla == 224) { 
             tecla = _getch();
-            if (tecla == 72) { posicao--; if(posicao < 0) posicao = 2; }
-            if (tecla == 80) { posicao++; if(posicao > 2) posicao = 0; }
-        } else if (tecla == 13) {
-            return (posicao == 0) ? 1 : (posicao == 1) ? 2 : 0;
-        } else if (tecla >= '0' && tecla <= '2') return tecla - '0';
+            if (tecla == 72) { posicao--; if(posicao < 0) posicao = 2; } 
+            if (tecla == 80) { posicao++; if(posicao > 2) posicao = 0; } 
+        } 
+        else if (tecla == 13) { 
+            if (posicao == 0) return 1;
+            if (posicao == 1) return 2;
+            return 0;
+        } 
+        else if (tecla == '1') return 1;
+        else if (tecla == '2') return 2;
+        else if (tecla == '0') return 0;
     }
     #else
-    int option; printf("1=Jogar, 2=IA, 0=Sair: "); scanf("%d", &option); return option;
+    int opt; printf("Opcao: "); scanf("%d", &opt); return opt;
     #endif
 }
 
@@ -258,21 +279,30 @@ int MenuIAInterativo() {
     int posicao = 0; 
     while (1) {
         limpar_tela();
-        printf("\n--- MODO IA ---\n\n");
-        printf("%s 1. Busca em Largura (BFS)\n", (posicao == 0) ? "->" : "  ");
-        printf("%s 2. Busca Profundidade (IDDFS)\n", (posicao == 1) ? "->" : "  ");
+        printf(YELLOW BOLD "\n   --- SELECIONE O ALGORITMO DE IA ---\n" RESET);
+        printf("   " YELLOW "+------------------------------------------+" RESET "\n");
+
+        printf("   " YELLOW "|" RESET "  %s [" CYAN "1" RESET "] BUSCA EM LARGURA (BFS)           " YELLOW "|" RESET "\n", (posicao == 0) ? BOLD YELLOW "->" RESET : "  ");
+        printf("   " YELLOW "|" RESET "  %s [" CYAN "2" RESET "] BUSCA PROFUNDIDADE (IDDFS)       " YELLOW "|" RESET "\n", (posicao == 1) ? BOLD YELLOW "->" RESET : "  ");
+        printf("   " YELLOW "|" RESET "  %s [" RED "3" RESET "] VOLTAR AO MENU PRINCIPAL         " YELLOW "|" RESET "\n", (posicao == 2) ? BOLD YELLOW "->" RESET : "  ");
+        
+        printf("   " YELLOW "+------------------------------------------+" RESET "\n");
 
         int tecla = _getch();
-        if (tecla == 224) {
+        if (tecla == 0 || tecla == 224) {
             tecla = _getch();
-            if (tecla == 72) { posicao--; if(posicao < 0) posicao = 1; }
-            if (tecla == 80) { posicao++; if(posicao > 1) posicao = 0; }
-        } else if (tecla == 13) {
-            return (posicao == 0) ? 1 : 2;
-        } else if (tecla == '1' || tecla == '2') return tecla - '0';
+            if (tecla == 72) { posicao--; if(posicao < 0) posicao = 2; }
+            if (tecla == 80) { posicao++; if(posicao > 2) posicao = 0; }
+        } 
+        else if (tecla == 13) {
+            if (posicao == 0) return 1;
+            if (posicao == 1) return 2;
+            return 3; 
+        } 
+        else if (tecla == '1') return 1;
+        else if (tecla == '2') return 2;
+        else if (tecla == '3') return 3;
     }
-    #else
-    int op; printf("1=BFS, 2=IDDFS: "); scanf("%d", &op); return op;
     #endif
 }
 
@@ -282,20 +312,28 @@ int MenuMovimentoInterativo(int *opcoes, int estado[3][3], int solucao[3][3]) {
     for(int i=0; i<4; i++) if(opcoes[i]!=0) validos[qtd++] = opcoes[i];
 
     limpar_tela();
-    printf("=== MODO JOGADOR ===\n\n=== OBJETIVO ===\n");
+    printf(CYAN BOLD "=== MODO JOGADOR ===\n" RESET);
+    printf(BLUE "\nOBJETIVO:\n" RESET);
     printEstado(solucao);
-    printf("\n=== SEU TABULEIRO ===\n");
+    printf(YELLOW "\nSEU TABULEIRO:\n" RESET);
     printEstado(estado);
+    
     printf("\nMover peca: ");
     for(int i=0; i<qtd; i++) printf("[%d] ", validos[i]);
-    printf("\n");
+    printf(RED "\n[0] VOLTAR AO MENU" RESET "\n");
 
     while(1) {
         int tecla = _getch();
+        if (tecla == '0') return 0; // Se pressionar 0, retorna sinal de saída
         int num = tecla - '0';
         if (verifica_opcoes(num, opcoes)) return num;
     }
     #else
-    int mov; printf("Mover: "); scanf("%d", &mov); return mov;
+    int mov;
+    printf("\nSeu tabuleiro:\n");
+    printEstado(estado);
+    printf("Mover (ou 0 para sair): ");
+    scanf("%d", &mov);
+    return mov;
     #endif
 }
