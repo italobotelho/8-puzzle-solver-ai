@@ -8,7 +8,14 @@ Este projeto é um simulador e solucionador de alto desempenho para o jogo **8-p
 
 Este trabalho faz parte do currículo de **Ciência de Dados e Inteligência Artificial** da **PUC-Campinas (2025)**.
 
-![Menu Principal](./assets/print_menu.png)
+---
+
+## 🎮 Interface do Usuário
+
+Abaixo, a interface interativa desenvolvida em C, com suporte a cores ANSI e navegação via teclado:
+
+![Menu Principal](./assets/menu_principal.png)
+
 ---
 
 ## 🚀 Funcionalidades Principais
@@ -20,6 +27,14 @@ Este trabalho faz parte do currículo de **Ciência de Dados e Inteligência Art
     * **Busca em Profundidade Limitada Iterativa (IDDFS):** Eficiência de memória com completude, ideal para estados mais profundos.
 * **Dashboard de Performance:** Ao finalizar uma busca, o programa exibe o tempo de execução exato e a quantidade de nós (estados) visitados.
 * **Visualização Passo a Passo:** Sistema de "Replay" animado que reproduz a solução encontrada pela IA na tela do usuário.
+
+---
+
+### 🧠 Inteligência Artificial em Ação
+
+O solver utiliza busca em espaço de estados para encontrar a solução ótima. Durante a busca, o sistema exibe métricas de performance em tempo real:
+
+![IA Resolvendo](./assets/ia_solving.gif)
 
 ---
 
@@ -75,6 +90,11 @@ Certifique-se de ter o **GCC** (ou qualquer compilador C99+) instalado.
 Em testes realizados, o algoritmo **BFS** encontrou soluções de 15 passos em menos de 1 segundo, explorando milhares de nós por segundo. Para problemas que exigem mais de 20 passos, o **IDDFS** demonstrou maior estabilidade de memória, evitando o transbordamento do Heap.
 
 > **Nota:** A complexidade do 8-puzzle é de $9!/2 = 181.440$ estados possíveis. Este software é capaz de navegar por esse espaço de forma eficiente.
+
+
+| Sucesso na Busca | Dashboard de Performance |
+| :---: | :---: |
+| ![Vitória](./assets/vitoria.png) | ![Métricas](./assets/metricas.png) |
 
 ---
 
