@@ -1,6 +1,15 @@
 #ifndef FuncoesGerais_H
 #define FuncoesGerais_H
 
+// Definições de Cores ANSI para o Terminal
+#define RED     "\x1b[31m"
+#define GREEN   "\x1b[32m"
+#define BLUE    "\x1b[34m"
+#define CYAN    "\x1b[36m"
+#define YELLOW  "\x1b[33m"
+#define RESET   "\x1b[0m"
+#define BOLD    "\x1b[1m"
+
 #include "TIPO.h"
 
 // --- FUNÇÕES DE UTILIDADE ---
@@ -62,5 +71,6 @@ int EhMovimentoReverso(Estado e, int movimentoProposto);
 
 // Solução declarada uma única vez
 extern int solucao[3][3];
+
 
 #endif // FuncoesGerais_H
