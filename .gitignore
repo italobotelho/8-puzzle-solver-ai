@@ -1,0 +1,24 @@
+# Arquivos compilados em C
+*.o
+*.out
+*.exe
+*.dll
+*.so
+
+# Arquivos do CodeBlocks
+*.cbp
+*.depend
+*.layout
+*.save
+*.workspace
+*.project
+
+# Pasta .codeblocks (cache e configurações do CodeBlocks)
+.codeblocks/
+
+# Arquivos do VS Code
+.vscode/
+
+# Arquivos de sistema operacional
+.DS_Store
+Thumbs.db
