@@ -70,8 +70,7 @@ Certifique-se de ter o **GCC** (ou qualquer compilador C99+) instalado.
 
 1.  **Clone o repositório:**
     ```bash
-    git clone [https://github.com/italobotelho/8-puzzle-solver-ai.git](https://github.com/italobotelho/8-puzzle-solver-ai.git)
-    cd 8-puzzle-solver-ai/src
+    git clone https://github.com/italobotelho/8-puzzle-solver-ai.git
     ```
 
 2.  **Compilação (Universal):**
@@ -95,5 +94,5 @@ Em testes realizados, o algoritmo **BFS** encontrou soluções de 15 passos em m
 
 ## 🎓 Autor e Créditos
 
-Desenvolvido por **Ítalo Botelho** como projeto acadêmico na **PUC-Campinas**.
+Desenvolvido por **Ítalo Botelho** e colegas como projeto acadêmico na **PUC-Campinas**.
 Focado na intersecção entre algoritmos de baixo nível e Inteligência Artificial.
