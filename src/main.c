@@ -54,7 +54,7 @@ int main()
                         printf("\n*********************************************\n" RESET);
                         printEstado(estado);
                         printf("\nPressione qualquer tecla para continuar...");
-                        #if defined(_WIN32)
+                        #if defined(_WIN32) || defined(__EMSCRIPTEN__)
                             _getch();
                         #else
                             getchar(); getchar();
@@ -83,9 +83,13 @@ int main()
                 printEstado(solucao);
 
                 printf("\nPressione ENTER para iniciar a busca da IA...");
+                #if defined(__EMSCRIPTEN__)
+                _getch();
+                #else
                 // Limpeza de buffer para o getchar não passar direto
                 while (getchar() != '\n'); 
                 getchar();
+                #endif
 
                 switch (option_ia)
                 {
@@ -97,7 +101,7 @@ int main()
                         break;
                 }
                 
-                #if defined(_WIN32)
+                #if defined(_WIN32) || defined(__EMSCRIPTEN__)
                     _getch();
                 #else
                     getchar();
@@ -117,9 +121,15 @@ int main()
             printf(BOLD "\n------------------------------------------------");
             printf("\nDeseja retornar ao Menu Principal? (1 = Sim / 0 = Sair): ");
             printf("\n------------------------------------------------\n>> ");
+            #if defined(__EMSCRIPTEN__)
+            fflush(stdout);
+            int k = _getch();
+            jogar_novamente = k - '0';
+            #else
             if (scanf("%d", &jogar_novamente) != 1) {
                 jogar_novamente = 0;
             }
+            #endif
         }
 
     } while (jogar_novamente == 1);

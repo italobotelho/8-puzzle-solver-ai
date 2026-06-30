@@ -64,11 +64,58 @@
             postRun: [],
             print: (function() {
                 var element = document.getElementById('terminal');
+                let openSpans = 0;
+                
+                function ansiToHtml(text) {
+                    // Escape HTML
+                    let result = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+                    
+                    const ansiMap = {
+                        '0': 'reset',
+                        '1': 'font-weight:bold;',
+                        '31': 'color:#ff5555;', // red
+                        '32': 'color:#55ff55;', // green
+                        '33': 'color:#ffff55;', // yellow
+                        '34': 'color:#5555ff;', // blue
+                        '36': 'color:#55ffff;'  // cyan
+                    };
+                    
+                    let html = "";
+                    let parts = result.split(/\033\[([0-9;]+)m/);
+                    
+                    html += parts[0]; 
+                    
+                    for (let i = 1; i < parts.length; i += 2) {
+                        let codes = parts[i].split(';');
+                        let content = parts[i+1] || "";
+                        
+                        let style = "";
+                        let reset = false;
+                        
+                        for (let code of codes) {
+                            if (code === '0' || code === '00') reset = true;
+                            else if (ansiMap[code]) style += ansiMap[code];
+                        }
+                        
+                        if (reset) {
+                            html += '</span>'.repeat(openSpans);
+                            openSpans = 0;
+                            html += content;
+                        } else if (style !== "") {
+                            html += `<span style="${style}">` + content;
+                            openSpans++;
+                        } else {
+                            html += content;
+                        }
+                    }
+                    return html;
+                }
+
                 return function(text) {
                     if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
                     console.log(text);
                     if (element) {
-                        element.innerHTML += text + "\n";
+                        element.innerHTML += ansiToHtml(text) + "\n";
                         element.scrollTop = element.scrollHeight;
                     }
                 };
@@ -86,8 +133,16 @@
             if(event.ctrlKey || event.altKey || event.metaKey || event.key.startsWith('F')) return;
             
             let key = event.key;
-            if(key.length === 1) { // Só captura se for um único caractere
-                window.keyBuffer.push(key);
+            if(key.length === 1) { 
+                window.keyBuffer.push(key.charCodeAt(0));
+            } else if (key === "Enter") {
+                window.keyBuffer.push(13);
+            } else if (key === "ArrowUp") {
+                window.keyBuffer.push(224);
+                window.keyBuffer.push(72);
+            } else if (key === "ArrowDown") {
+                window.keyBuffer.push(224);
+                window.keyBuffer.push(80);
             }
         });
     </script>

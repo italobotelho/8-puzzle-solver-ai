@@ -6,6 +6,21 @@
 #if defined(_WIN32) || defined(WIN32)
     #include <windows.h>
     #include <conio.h>
+#elif defined(__EMSCRIPTEN__)
+    #include <emscripten.h>
+    int _getch() {
+        int k = 0;
+        while(k == 0) {
+            k = EM_ASM_INT({
+                if (window.keyBuffer && window.keyBuffer.length > 0) {
+                    return window.keyBuffer.shift();
+                }
+                return 0;
+            });
+            if(k == 0) emscripten_sleep(50);
+        }
+        return k;
+    }
 #else
     #include <unistd.h>
 #endif
@@ -24,6 +39,8 @@ int solucao[3][3] = {
 void delay_ms(int ms) {
     #if defined(_WIN32) || defined(WIN32)
         Sleep(ms);
+    #elif defined(__EMSCRIPTEN__)
+        emscripten_sleep(ms);
     #else
         usleep(ms * 1000);
     #endif 
@@ -33,6 +50,8 @@ void delay_ms(int ms) {
 void limpar_tela() {
     #if defined(_WIN32) || defined(WIN32)
         system("cls");
+    #elif defined(__EMSCRIPTEN__)
+        EM_ASM({ var el = document.getElementById('terminal'); if(el) el.innerHTML = ''; });
     #else
         system("clear");
     #endif
@@ -230,7 +249,7 @@ int EhMovimentoReverso(Estado e, int movimentoProposto) {
 // --- MENUS ---
 
 int MenuPrincipalInterativo() {
-    #if defined(_WIN32) || defined(WIN32)
+    #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
     int posicao = 0; 
     while (1) {
         limpar_tela();
@@ -275,7 +294,7 @@ int MenuPrincipalInterativo() {
 }
 
 int MenuIAInterativo() {
-    #if defined(_WIN32) || defined(WIN32)
+    #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
     int posicao = 0; 
     while (1) {
         limpar_tela();
@@ -307,7 +326,7 @@ int MenuIAInterativo() {
 }
 
 int MenuMovimentoInterativo(int *opcoes, int estado[3][3], int solucao[3][3]) {
-    #if defined(_WIN32) || defined(WIN32)
+    #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
     int validos[4], qtd=0;
     for(int i=0; i<4; i++) if(opcoes[i]!=0) validos[qtd++] = opcoes[i];
 
