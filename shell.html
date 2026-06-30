@@ -71,8 +71,6 @@
                     let result = text.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
                     
                     const ansiMap = {
-                        '0': 'reset',
-                        '1': 'font-weight:bold;',
                         '31': 'color:#ff5555;', // red
                         '32': 'color:#55ff55;', // green
                         '33': 'color:#ffff55;', // yellow
@@ -81,7 +79,7 @@
                     };
                     
                     let html = "";
-                    let parts = result.split(/\033\[([0-9;]+)m/);
+                    let parts = result.split(/\x1b\[([0-9;]*)m/);
                     
                     html += parts[0]; 
                     
@@ -93,7 +91,7 @@
                         let reset = false;
                         
                         for (let code of codes) {
-                            if (code === '0' || code === '00') reset = true;
+                            if (code === '0' || code === '00' || code === '') reset = true;
                             else if (ansiMap[code]) style += ansiMap[code];
                         }
                         
