@@ -104,7 +104,7 @@ void printEstado(int estado[3][3])
         {
             if (estado[i][j] == 0)
             {
-                printf("X\t");
+                printf(" \t");
             }
             else
             {
