@@ -12,6 +12,10 @@
 
 #include "TIPO.h"
 
+#if defined(__EMSCRIPTEN__)
+int _getch(void);
+#endif
+
 // --- FUNÇÕES DE UTILIDADE ---
 
 // Função para pausar a execução por X milissegundos (Cross-platform)

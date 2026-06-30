@@ -51,7 +51,7 @@ void limpar_tela() {
     #if defined(_WIN32) || defined(WIN32)
         system("cls");
     #elif defined(__EMSCRIPTEN__)
-        EM_ASM({ var el = document.getElementById('terminal'); if(el) el.innerHTML = ''; });
+        EM_ASM({ var el = document.getElementById('terminal'); if(el) el.innerHTML = ""; });
     #else
         system("clear");
     #endif
