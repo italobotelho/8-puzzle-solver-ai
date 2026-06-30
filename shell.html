@@ -64,7 +64,7 @@
             postRun: [],
             print: (function() {
                 var element = document.getElementById('terminal');
-                let openSpans = 0;
+                let currentStyle = "";
                 
                 function ansiToHtml(text) {
                     // Escape HTML
@@ -81,29 +81,34 @@
                     let html = "";
                     let parts = result.split(/\x1b\[([0-9;]*)m/);
                     
-                    html += parts[0]; 
+                    if (currentStyle && parts[0]) {
+                        html += `<span style="${currentStyle}">` + parts[0] + '</span>';
+                    } else {
+                        html += parts[0]; 
+                    }
                     
                     for (let i = 1; i < parts.length; i += 2) {
                         let codes = parts[i].split(';');
                         let content = parts[i+1] || "";
                         
-                        let style = "";
                         let reset = false;
                         
                         for (let code of codes) {
                             if (code === '0' || code === '00' || code === '') reset = true;
-                            else if (ansiMap[code]) style += ansiMap[code];
+                            else if (ansiMap[code]) {
+                                currentStyle = ansiMap[code];
+                            }
                         }
                         
                         if (reset) {
-                            html += '</span>'.repeat(openSpans);
-                            openSpans = 0;
+                            currentStyle = "";
                             html += content;
-                        } else if (style !== "") {
-                            html += `<span style="${style}">` + content;
-                            openSpans++;
                         } else {
-                            html += content;
+                            if (currentStyle && content) {
+                                html += `<span style="${currentStyle}">` + content + '</span>';
+                            } else {
+                                html += content;
+                            }
                         }
                     }
                     return html;
