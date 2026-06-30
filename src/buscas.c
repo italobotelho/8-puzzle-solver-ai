@@ -75,7 +75,13 @@ void BuscaEmLargura(int matrizInicial[3][3]) {
         if (verifica_solucao(atual.matriz, solucao)) {
             double tempoTotal = (double)(clock() - inicio) / CLOCKS_PER_SEC;
             printf("\nProcessamento finalizado em %.2f segundos!\n", tempoTotal);
-            delay_ms(4000);
+            printf(YELLOW "\nPressione ENTER para ver o replay da solucao...\n" RESET);
+            fflush(stdout);
+            #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
+                _getch();
+            #else
+                getchar();
+            #endif
             AnimaSolucao(matrizInicial, atual, visitados, tempoTotal);
             liberaFila(fila);
             return;
@@ -148,7 +154,13 @@ void BuscaProfundidadeIterativa(int matrizInicial[3][3]) {
             if (verifica_solucao(atual.matriz, solucao)) {
                 double tempoTotal = (double)(clock() - inicio) / CLOCKS_PER_SEC;
                 printf("\n\nEncontrado no nivel %d em %.2f segundos!\n", limite, tempoTotal);
-                delay_ms(4000); 
+                printf(YELLOW "\nPressione ENTER para ver o replay da solucao...\n" RESET);
+                fflush(stdout);
+                #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
+                    _getch();
+                #else
+                    getchar();
+                #endif
                 AnimaSolucao(matrizInicial, atual, visitados, tempoTotal);
                 liberaPilha(pilha);
                 return;
