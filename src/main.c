@@ -50,10 +50,10 @@ int main()
                     if (verifica_solucao(estado, solucao)) {
                         limpar_tela();
                         printf(GREEN BOLD "\n*********************************************");
-                        printf("\n* PARABENS!! VOCE COMPLETOU O 8-PUZZLE!! *");
+                        printf("\n* CONGRATULATIONS!! YOU COMPLETED THE 8-PUZZLE!! *");
                         printf("\n*********************************************\n" RESET);
                         printEstado(estado);
-                        printf("\nPressione qualquer tecla para continuar...\n");
+                        printf("\nPress any key to continue...\n");
                         fflush(stdout);
                         #if defined(_WIN32) || defined(__EMSCRIPTEN__)
                             _getch();
@@ -78,12 +78,12 @@ int main()
                 GeraTabuleiroValido(estado); 
                 
                 limpar_tela();
-                printf(CYAN "=== TABULEIRO INICIAL (IA) ===\n" RESET);
+                printf(CYAN "=== INITIAL BOARD (AI) ===\n" RESET);
                 printEstado(estado);
-                printf(BLUE "\nOBJETIVO:\n" RESET);
+                printf(BLUE "\nGOAL:\n" RESET);
                 printEstado(solucao);
 
-                printf("\nPressione ENTER para iniciar a busca da IA...\n");
+                printf("\nPress ENTER to start the AI search...\n");
                 fflush(stdout);
                 #if defined(__EMSCRIPTEN__)
                 _getch();
@@ -112,7 +112,7 @@ int main()
             }
 
             default:
-                printf(RED "Opcao invalida. Tente novamente.\n" RESET);
+                printf(RED "Invalid option. Try again.\n" RESET);
                 delay_ms(1000);
                 break;
         }
@@ -121,7 +121,7 @@ int main()
         if (option != 0) {
             limpar_tela();
             printf(BOLD "\n------------------------------------------------");
-            printf("\nDeseja retornar ao Menu Principal? (1 = Sim / 0 = Sair): ");
+            printf("\nReturn to Main Menu? (1 = Yes / 0 = Exit): ");
             printf("\n------------------------------------------------\n>> \n");
             #if defined(__EMSCRIPTEN__)
             fflush(stdout);
@@ -136,6 +136,6 @@ int main()
 
     } while (jogar_novamente == 1);
 
-    printf(CYAN "\nObrigado por jogar! Encerrando...\n" RESET);
+    printf(CYAN "\nThanks for playing! Exiting...\n" RESET);
     return 0;
 }

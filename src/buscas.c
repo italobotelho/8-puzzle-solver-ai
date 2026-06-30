@@ -13,9 +13,9 @@ void AnimaSolucao(int matrizInicial[3][3], Estado e, int visitados, double tempo
     deepcopy(matrizInicial, tabuleiroAnimacao);
 
     limpar_tela();
-    printf(BOLD YELLOW ">>> REPLAY DA SOLUCAO <<<\n" RESET);
-    printf("Estados analisados: " CYAN "%d" RESET " | Tempo: " GREEN "%.2fs\n\n" RESET, visitados, tempoTotal);
-    printf(BOLD BLUE "=== INICIO (Passo 0/%d) ===\n" RESET, e.num_passos);
+    printf(BOLD YELLOW ">>> SOLUTION REPLAY <<<\n" RESET);
+    printf("States analyzed: " CYAN "%d" RESET " | Time: " GREEN "%.2fs\n\n" RESET, visitados, tempoTotal);
+    printf(BOLD BLUE "=== START (Step 0/%d) ===\n" RESET, e.num_passos);
     printEstado(tabuleiroAnimacao);
     delay_ms(800);
 
@@ -31,14 +31,14 @@ void AnimaSolucao(int matrizInicial[3][3], Estado e, int visitados, double tempo
         muda_tabuleiro(tabuleiroAnimacao, vazioX, vazioY, movX, movY);
 
         limpar_tela();
-        printf(BOLD YELLOW ">>> REPLAY DA SOLUCAO <<<\n" RESET);
-        printf("Estados analisados: " CYAN "%d" RESET " | Tempo: " GREEN "%.2fs\n\n" RESET, visitados, tempoTotal);
-        printf(BOLD BLUE "=== PASSO %d/%d (Peca %d) ===\n" RESET, i+1, e.num_passos, pecaMover);
+        printf(BOLD YELLOW ">>> SOLUTION REPLAY <<<\n" RESET);
+        printf("States analyzed: " CYAN "%d" RESET " | Time: " GREEN "%.2fs\n\n" RESET, visitados, tempoTotal);
+        printf(BOLD BLUE "=== STEP %d/%d (Tile %d) ===\n" RESET, i+1, e.num_passos, pecaMover);
         printEstado(tabuleiroAnimacao);
         delay_ms(600);
     }
 
-    printf("\n\nSolucao concluida! Pressione ENTER para sair...\n");
+    printf("\n\nSolution completed! Press ENTER to exit...\n");
     fflush(stdout);
 }
 
@@ -57,7 +57,7 @@ void BuscaEmLargura(int matrizInicial[3][3]) {
     clock_t inicio = clock();
 
     limpar_tela();
-    printf("\nIniciando Busca em Largura (BFS)...\n");
+    printf("\nStarting Breadth-First Search (BFS)...\n");
 
     while (!VaziaFila(fila)) { 
         Estado atual = RetiraFila(fila); 
@@ -65,7 +65,7 @@ void BuscaEmLargura(int matrizInicial[3][3]) {
 
         if (visitados % 200 == 0) {
             double tempo = (double)(clock() - inicio) / CLOCKS_PER_SEC;
-            printf("\r" BOLD GREEN "[BFS]" RESET " Analisados: " CYAN "%6d" RESET " | Profundidade: " YELLOW "%2d" RESET " | Tempo: %.1fs", visitados, atual.profundidade, tempo);
+            printf("\r" BOLD GREEN "[BFS]" RESET " Analyzed: " CYAN "%6d" RESET " | Depth: " YELLOW "%2d" RESET " | Time: %.1fs", visitados, atual.profundidade, tempo);
             #if defined(__EMSCRIPTEN__)
             printf("\n");
             #endif
@@ -75,8 +75,8 @@ void BuscaEmLargura(int matrizInicial[3][3]) {
         
         if (verifica_solucao(atual.matriz, solucao)) {
             double tempoTotal = (double)(clock() - inicio) / CLOCKS_PER_SEC;
-            printf("\nProcessamento finalizado em %.2f segundos!\n", tempoTotal);
-            printf(YELLOW "\nPressione ENTER para ver o replay da solucao...\n" RESET);
+            printf("\nProcessing finished in %.2f seconds!\n", tempoTotal);
+            printf(YELLOW "\nPress ENTER to watch the solution replay...\n" RESET);
             fflush(stdout);
             #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
                 _getch();
@@ -114,7 +114,7 @@ void BuscaEmLargura(int matrizInicial[3][3]) {
             }
         }
     }
-    printf("\nSem solucao (Fila esvaziou).\n"); 
+    printf("\nNo solution (Queue emptied).\n"); 
     liberaFila(fila);
 }
 
@@ -127,7 +127,7 @@ void BuscaProfundidadeIterativa(int matrizInicial[3][3]) {
 
     while (limite <= MAX_PROFUNDIDADE_TOTAL) {
         limpar_tela();
-        printf("\nIniciando Busca Iterativa (IDDFS)...\n");  
+        printf("\nStarting Iterative Deepening (IDDFS)...\n");  
         Pilha* pilha = CriaPilha();
         Estado inicial;
         deepcopy(matrizInicial, inicial.matriz);
@@ -144,7 +144,7 @@ void BuscaProfundidadeIterativa(int matrizInicial[3][3]) {
 
             if (visitados % 200 == 0) {
                 double tempo = (double)(clock() - inicio) / CLOCKS_PER_SEC;
-                printf("\r   " BOLD YELLOW "[Nivel %d]" RESET " Analisados: " CYAN "%5d" RESET " | Tempo: %.1fs", limite, visitados, tempo);
+                printf("\r   " BOLD YELLOW "[Level %d]" RESET " Analyzed: " CYAN "%5d" RESET " | Time: %.1fs", limite, visitados, tempo);
                 #if defined(__EMSCRIPTEN__)
                 printf("\n");
                 #endif
@@ -154,8 +154,8 @@ void BuscaProfundidadeIterativa(int matrizInicial[3][3]) {
 
             if (verifica_solucao(atual.matriz, solucao)) {
                 double tempoTotal = (double)(clock() - inicio) / CLOCKS_PER_SEC;
-                printf("\n\nEncontrado no nivel %d em %.2f segundos!\n", limite, tempoTotal);
-                printf(YELLOW "\nPressione ENTER para ver o replay da solucao...\n" RESET);
+                printf("\n\nFound at level %d in %.2f seconds!\n", limite, tempoTotal);
+                printf(YELLOW "\nPress ENTER to watch the solution replay...\n" RESET);
                 fflush(stdout);
                 #if defined(_WIN32) || defined(WIN32) || defined(__EMSCRIPTEN__)
                     _getch();

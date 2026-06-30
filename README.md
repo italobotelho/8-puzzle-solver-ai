@@ -1,98 +1,98 @@
-# 🧩 8-Puzzle Solver: Inteligência Artificial Clássica em C
+# 🧩 8-Puzzle Solver: Classic Artificial Intelligence in C
 
 ![C](https://img.shields.io/badge/language-C-blue.svg)
 ![AI](https://img.shields.io/badge/focus-Artificial%20Intelligence-orange.svg)
 ![Data Structures](https://img.shields.io/badge/core-Data%20Structures-green.svg)
 
-Este projeto é um simulador e solucionador de alto desempenho para o jogo **8-puzzle** (Jogo dos Oito). Desenvolvido totalmente em linguagem C, o software utiliza algoritmos de **IA clássica (Busca Cega)** para explorar espaços de estados e encontrar sequências de movimentos ótimas para tabuleiros embaralhados.
+This project is a high-performance simulator and solver for the **8-puzzle** game. Developed entirely in C, the software uses **classic AI algorithms (Blind Search)** to explore state spaces and find optimal move sequences for scrambled boards.
 
-Este trabalho faz parte do currículo de **Ciência de Dados e Inteligência Artificial** da **PUC-Campinas (2025)**.
-
----
-
-## 🎮 Interface do Usuário
-
-Abaixo, a interface interativa desenvolvida em C, com suporte a cores ANSI e navegação via teclado:
-
-![Menu Principal](./assets/menu_principal.png)
+This work is part of the **Data Science and Artificial Intelligence** curriculum at **PUC-Campinas (2025)**.
 
 ---
 
-## 🚀 Funcionalidades Principais
+## 🎮 User Interface
 
-* **Lógica de IA Completa:** Implementação de algoritmos fundamentais para resolução de problemas de busca.
-* **Modo Jogador:** Interface via terminal para resolução manual, permitindo testar a dificuldade do tabuleiro.
-* **Modo Solver (IA):**
-    * **Busca em Largura (BFS):** Garante o caminho mais curto até a solução (otimalidade).
-    * **Busca em Profundidade Limitada Iterativa (IDDFS):** Eficiência de memória com completude, ideal para estados mais profundos.
-* **Dashboard de Performance:** Ao finalizar uma busca, o programa exibe o tempo de execução exato e a quantidade de nós (estados) visitados.
-* **Visualização Passo a Passo:** Sistema de "Replay" animado que reproduz a solução encontrada pela IA na tela do usuário.
+Below is the interactive interface developed in C, with ANSI color support and keyboard navigation:
+
+![Main Menu](./assets/menu_principal.png)
 
 ---
 
-### 🧠 Inteligência Artificial em Ação
+## 🚀 Key Features
 
-O solver utiliza busca em espaço de estados para encontrar a solução ótima. Durante a busca, o sistema exibe métricas de performance em tempo real:
-
-![IA Resolvendo](./assets/ia_solving.gif)
-
----
-
-## 🧠 Conceitos Técnicos e Engenharia
-
-O projeto foi construído focando em performance de baixo nível e controle rigoroso de memória:
-
-* **Gerenciamento de Estados:** Cada configuração do tabuleiro é tratada como um nó em um grafo, onde as arestas são os movimentos possíveis (Cima, Baixo, Esquerda, Direita).
-* **Estruturas de Dados Manuais:** Para evitar dependências externas e garantir eficiência, foram implementadas manualmente:
-    * **Filas Dinâmicas (FIFO):** Suporte para a fronteira de busca do BFS.
-    * **Pilhas Dinâmicas (LIFO):** Suporte para o IDDFS e reconstrução do caminho da solução.
-* **Garantia de Solubilidade:** O sistema utiliza cálculos de **Paridade de Inversões** para garantir que todo tabuleiro gerado seja matematicamente possível de resolver, evitando loops infinitos.
+* **Complete AI Logic:** Implementation of fundamental algorithms for search problem resolution.
+* **Player Mode:** Terminal-based interface for manual solving, allowing you to test the board's difficulty.
+* **Solver Mode (AI):**
+    * **Breadth-First Search (BFS):** Guarantees the shortest path to the solution (optimality).
+    * **Iterative Deepening Depth-First Search (IDDFS):** Memory efficiency with completeness, ideal for deeper states.
+* **Performance Dashboard:** Upon completing a search, the program displays the exact execution time and the number of nodes (states) visited.
+* **Step-by-Step Visualization:** Animated "Replay" system that plays back the solution found by the AI on the user's screen.
 
 ---
 
-## 🛠️ Estrutura do Código
+### 🧠 Artificial Intelligence in Action
 
-A arquitetura está modularizada na pasta `src/`:
+The solver uses state space search to find the optimal solution. During the search, the system displays real-time performance metrics:
 
-| Arquivo | Descrição |
+![AI Solving](./assets/ia_solving.gif)
+
+---
+
+## 🧠 Technical Concepts and Engineering
+
+The project was built focusing on low-level performance and strict memory control:
+
+* **State Management:** Each board configuration is treated as a node in a graph, where the edges are the possible moves (Up, Down, Left, Right).
+* **Manual Data Structures:** To avoid external dependencies and ensure efficiency, the following were implemented manually:
+    * **Dynamic Queues (FIFO):** Support for the BFS search frontier.
+    * **Dynamic Stacks (LIFO):** Support for IDDFS and solution path reconstruction.
+* **Solvability Guarantee:** The system uses **Inversion Parity** calculations to ensure that every generated board is mathematically solvable, preventing infinite loops.
+
+---
+
+## 🛠️ Code Structure
+
+The architecture is modularized in the `src/` folder:
+
+| File | Description |
 | :--- | :--- |
-| `main.c` | Ponto de entrada, interface de menus e loop principal. |
-| `buscas.c / .h` | O "cérebro" do projeto; contém as lógicas de BFS e IDDFS. |
-| `FuncoesGerais.c / .h` | Lógica do tabuleiro, verificação de paridade e utilitários de sistema. |
-| `FILA.h / PILHA.h` | Implementações genéricas de estruturas de dados dinâmicas. |
-| `TIPO.h` | Definição da estrutura `Estado`, essencial para o histórico de movimentos. |
+| `main.c` | Entry point, menu interface, and main loop. |
+| `buscas.c / .h` | The "brain" of the project; contains the BFS and IDDFS logic. |
+| `FuncoesGerais.c / .h` | Board logic, parity checking, and system utilities. |
+| `FILA.h / PILHA.h` | Generic implementations of dynamic data structures. |
+| `TIPO.h` | Definition of the `Estado` structure, essential for move history. |
 
 ---
 
-## 💻 Como Compilar e Executar
+## 💻 How to Compile and Run
 
-Certifique-se de ter o **GCC** (ou qualquer compilador C99+) instalado.
+Make sure you have **GCC** (or any C99+ compiler) installed.
 
-1.  **Clone o repositório:**
+1.  **Clone the repository:**
     ```bash
     git clone https://github.com/italobotelho/8-puzzle-solver-ai.git
     ```
 
-2.  **Compilação (Universal):**
+2.  **Compilation (Universal):**
     ```bash
     gcc *.c -o puzzle_solver
     ```
 
-3.  **Execução:**
+3.  **Execution:**
     * **Windows:** `.\puzzle_solver.exe`
     * **Linux/macOS:** `./puzzle_solver`
 
 ---
 
-## 📊 Resultados e Performance
+## 📊 Results and Performance
 
-Em testes realizados, o algoritmo **BFS** encontrou soluções de 15 passos em menos de 1 segundo, explorando milhares de nós por segundo. Para problemas que exigem mais de 20 passos, o **IDDFS** demonstrou maior estabilidade de memória, evitando o transbordamento do Heap.
+In conducted tests, the **BFS** algorithm found 15-step solutions in less than 1 second, exploring thousands of nodes per second. For problems requiring more than 20 steps, **IDDFS** demonstrated greater memory stability, avoiding Heap overflow.
 
-> **Nota:** A complexidade do 8-puzzle é de $9!/2 = 181.440$ estados possíveis. Este software é capaz de navegar por esse espaço de forma eficiente.
+> **Note:** The complexity of the 8-puzzle is $9!/2 = 181,440$ possible states. This software can navigate this space efficiently.
 
 ---
 
-## 🎓 Autor e Créditos
+## 🎓 Author and Credits
 
-Desenvolvido por **Ítalo Botelho** e colegas como projeto acadêmico na **PUC-Campinas**.
-Focado na intersecção entre algoritmos de baixo nível e Inteligência Artificial.
+Developed by **Ítalo Botelho** and colleagues as an academic project at **PUC-Campinas**.
+Focused on the intersection of low-level algorithms and Artificial Intelligence.

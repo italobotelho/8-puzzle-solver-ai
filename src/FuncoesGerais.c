@@ -262,16 +262,16 @@ int MenuPrincipalInterativo() {
         printf(RESET);
 
         printf("\n   " BLUE "+------------------------------------------+" RESET "\n");
-        printf("   " BLUE "|" RESET "              " BOLD "MENU DE OPCOES" RESET "              " BLUE "|" RESET "\n");
+        printf("   " BLUE "|" RESET "              " BOLD "OPTIONS MENU" RESET "                " BLUE "|" RESET "\n");
         printf("   " BLUE "+------------------------------------------+" RESET "\n");
         
         // Cada linha abaixo tem exatamente a mesma quantidade de espaços internos
-        printf("   " BLUE "|" RESET "  %s [" YELLOW "1" RESET "] JOGAR MANUALMENTE                " BLUE "|" RESET "\n", (posicao == 0) ? BOLD CYAN "->" RESET : "  ");
-        printf("   " BLUE "|" RESET "  %s [" YELLOW "2" RESET "] RESOLVER AUTOMATICO (IA)         " BLUE "|" RESET "\n", (posicao == 1) ? BOLD CYAN "->" RESET : "  ");
-        printf("   " BLUE "|" RESET "  %s [" RED "0" RESET "] SAIR DO JOGO                     " BLUE "|" RESET "\n", (posicao == 2) ? BOLD CYAN "->" RESET : "  ");
+        printf("   " BLUE "|" RESET "  %s [" YELLOW "1" RESET "] PLAY MANUALLY                    " BLUE "|" RESET "\n", (posicao == 0) ? BOLD CYAN "->" RESET : "  ");
+        printf("   " BLUE "|" RESET "  %s [" YELLOW "2" RESET "] SOLVE AUTOMATICALLY (AI)         " BLUE "|" RESET "\n", (posicao == 1) ? BOLD CYAN "->" RESET : "  ");
+        printf("   " BLUE "|" RESET "  %s [" RED "0" RESET "] EXIT GAME                        " BLUE "|" RESET "\n", (posicao == 2) ? BOLD CYAN "->" RESET : "  ");
         
         printf("   " BLUE "+------------------------------------------+" RESET "\n");
-        printf("\n   " CYAN ">> Use as setas e aperte ENTER ou digite o indice correspondente: " RESET "\n");
+        printf("\n   " CYAN ">> Use arrows and press ENTER or type the corresponding index: " RESET "\n");
         fflush(stdout);
 
         int tecla = _getch();
@@ -299,12 +299,12 @@ int MenuIAInterativo() {
     int posicao = 0; 
     while (1) {
         limpar_tela();
-        printf(YELLOW BOLD "\n   --- SELECIONE O ALGORITMO DE IA ---\n" RESET);
+        printf(YELLOW BOLD "\n   --- SELECT AI ALGORITHM ---\n" RESET);
         printf("   " YELLOW "+------------------------------------------+" RESET "\n");
 
-        printf("   " YELLOW "|" RESET "  %s [" CYAN "1" RESET "] BUSCA EM LARGURA (BFS)           " YELLOW "|" RESET "\n", (posicao == 0) ? BOLD YELLOW "->" RESET : "  ");
-        printf("   " YELLOW "|" RESET "  %s [" CYAN "2" RESET "] BUSCA PROFUNDIDADE (IDDFS)       " YELLOW "|" RESET "\n", (posicao == 1) ? BOLD YELLOW "->" RESET : "  ");
-        printf("   " YELLOW "|" RESET "  %s [" RED "3" RESET "] VOLTAR AO MENU PRINCIPAL         " YELLOW "|" RESET "\n", (posicao == 2) ? BOLD YELLOW "->" RESET : "  ");
+        printf("   " YELLOW "|" RESET "  %s [" CYAN "1" RESET "] BREADTH-FIRST SEARCH (BFS)       " YELLOW "|" RESET "\n", (posicao == 0) ? BOLD YELLOW "->" RESET : "  ");
+        printf("   " YELLOW "|" RESET "  %s [" CYAN "2" RESET "] ITERATIVE DEEPENING (IDDFS)      " YELLOW "|" RESET "\n", (posicao == 1) ? BOLD YELLOW "->" RESET : "  ");
+        printf("   " YELLOW "|" RESET "  %s [" RED "3" RESET "] RETURN TO MAIN MENU              " YELLOW "|" RESET "\n", (posicao == 2) ? BOLD YELLOW "->" RESET : "  ");
         
         printf("   " YELLOW "+------------------------------------------+" RESET "\n");
         fflush(stdout);
@@ -333,15 +333,15 @@ int MenuMovimentoInterativo(int *opcoes, int estado[3][3], int solucao[3][3]) {
     for(int i=0; i<4; i++) if(opcoes[i]!=0) validos[qtd++] = opcoes[i];
 
     limpar_tela();
-    printf(CYAN BOLD "=== MODO JOGADOR ===\n" RESET);
-    printf(BLUE "\nOBJETIVO:\n" RESET);
+    printf(CYAN BOLD "=== PLAYER MODE ===\n" RESET);
+    printf(BLUE "\nGOAL:\n" RESET);
     printEstado(solucao);
-    printf(YELLOW "\nSEU TABULEIRO:\n" RESET);
+    printf(YELLOW "\nYOUR BOARD:\n" RESET);
     printEstado(estado);
     
-    printf("\nMover peca: ");
+    printf("\nMove tile: ");
     for(int i=0; i<qtd; i++) printf("[%d] ", validos[i]);
-    printf(RED "\n[0] VOLTAR AO MENU" RESET "\n");
+    printf(RED "\n[0] RETURN TO MENU" RESET "\n");
     fflush(stdout);
 
     while(1) {
@@ -352,9 +352,9 @@ int MenuMovimentoInterativo(int *opcoes, int estado[3][3], int solucao[3][3]) {
     }
     #else
     int mov;
-    printf("\nSeu tabuleiro:\n");
+    printf("\nYour board:\n");
     printEstado(estado);
-    printf("Mover (ou 0 para sair): ");
+    printf("Move (or 0 to exit): ");
     scanf("%d", &mov);
     return mov;
     #endif
