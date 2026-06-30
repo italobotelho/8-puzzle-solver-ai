@@ -271,7 +271,7 @@ int MenuPrincipalInterativo() {
         printf("   " BLUE "|" RESET "  %s [" RED "0" RESET "] SAIR DO JOGO                     " BLUE "|" RESET "\n", (posicao == 2) ? BOLD CYAN "->" RESET : "  ");
         
         printf("   " BLUE "+------------------------------------------+" RESET "\n");
-        printf("\n   " CYAN ">> Use as setas e aperte ENTER ou digite o indice correspondente: " RESET);
+        printf("\n   " CYAN ">> Use as setas e aperte ENTER ou digite o indice correspondente: " RESET "\n");
         fflush(stdout);
 
         int tecla = _getch();

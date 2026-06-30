@@ -53,7 +53,7 @@ int main()
                         printf("\n* PARABENS!! VOCE COMPLETOU O 8-PUZZLE!! *");
                         printf("\n*********************************************\n" RESET);
                         printEstado(estado);
-                        printf("\nPressione qualquer tecla para continuar...");
+                        printf("\nPressione qualquer tecla para continuar...\n");
                         fflush(stdout);
                         #if defined(_WIN32) || defined(__EMSCRIPTEN__)
                             _getch();
@@ -83,7 +83,7 @@ int main()
                 printf(BLUE "\nOBJETIVO:\n" RESET);
                 printEstado(solucao);
 
-                printf("\nPressione ENTER para iniciar a busca da IA...");
+                printf("\nPressione ENTER para iniciar a busca da IA...\n");
                 fflush(stdout);
                 #if defined(__EMSCRIPTEN__)
                 _getch();
@@ -122,7 +122,7 @@ int main()
             limpar_tela();
             printf(BOLD "\n------------------------------------------------");
             printf("\nDeseja retornar ao Menu Principal? (1 = Sim / 0 = Sair): ");
-            printf("\n------------------------------------------------\n>> ");
+            printf("\n------------------------------------------------\n>> \n");
             #if defined(__EMSCRIPTEN__)
             fflush(stdout);
             int k = _getch();
