@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Labirinto 2D - 8 Puzzle Solver AI</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #00ffcc;
+            font-family: 'Consolas', 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+        }
+        #terminal-container {
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 30px;
+            width: 80%;
+            max-width: 700px;
+            height: 75%;
+            display: flex;
+            flex-direction: column;
+            box-shadow: 0 10px 30px rgba(0, 255, 204, 0.1);
+            backdrop-filter: blur(10px);
+        }
+        #terminal {
+            flex-grow: 1;
+            overflow-y: auto;
+            white-space: pre-wrap;
+            margin: 0;
+            font-size: 16px;
+            line-height: 1.4;
+        }
+        .instructions {
+            margin-top: 15px;
+            color: #666;
+            font-size: 13px;
+            text-align: center;
+            border-top: 1px solid #333;
+            padding-top: 10px;
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+        ::-webkit-scrollbar-thumb:hover { background: #555; }
+    </style>
+</head>
+<body>
+    <div id="terminal-container">
+        <pre id="terminal"></pre>
+        <div class="instructions">O teclado está capturando suas teclas automaticamente. Não é necessário clicar.</div>
+    </div>
+
+    <script>
+        var Module = {
+            preRun: [],
+            postRun: [],
+            print: (function() {
+                var element = document.getElementById('terminal');
+                return function(text) {
+                    if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+                    console.log(text);
+                    if (element) {
+                        element.innerHTML += text + "\n";
+                        element.scrollTop = element.scrollHeight;
+                    }
+                };
+            })(),
+            printErr: function(text) {
+                if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
+                console.error(text);
+            }
+        };
+
+        // Captura de eventos do teclado para o C
+        window.keyBuffer = [];
+        document.addEventListener('keydown', function(event) {
+            // Ignora F5, F12, Ctrl+C etc
+            if(event.ctrlKey || event.altKey || event.metaKey || event.key.startsWith('F')) return;
+            
+            let key = event.key;
+            if(key.length === 1) { // Só captura se for um único caractere
+                window.keyBuffer.push(key);
+            }
+        });
+    </script>
+    {{{ SCRIPT }}}
+</body>
+</html>

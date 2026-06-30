@@ -4,7 +4,7 @@
 
 #ifdef __EMSCRIPTEN__
 #include <emscripten.h>
-#define CLEAR_SCREEN printf("\033[2J\033[H")
+#define CLEAR_SCREEN EM_ASM({ var el = document.getElementById('terminal'); if(el) el.innerHTML = ''; });
 #else
 #include <windows.h> // chamada para usar o clear do terminal
 #define CLEAR_SCREEN system("cls")
@@ -182,7 +182,24 @@ int opcoes_user()
     do
     {
         printf("Digite uma das opcoes (1 ou 2) => ");
+        fflush(stdout);
+
+#ifdef __EMSCRIPTEN__
+        char k = 0;
+        while(k == 0) {
+            k = (char)EM_ASM_INT({
+                if (window.keyBuffer && window.keyBuffer.length > 0) {
+                    return window.keyBuffer.shift().charCodeAt(0);
+                }
+                return 0;
+            });
+            if(k == 0) emscripten_sleep(50);
+        }
+        a = k - '0';
+        printf("%c\n", k); // Echo da tecla
+#else
         scanf("%d", &a);
+#endif
     } while (a != 1 && a != 2);
 
     return a;
@@ -229,7 +246,24 @@ int main()
                 layout();
 
                 printf("===> ");
+                fflush(stdout);
+
+#ifdef __EMSCRIPTEN__
+                char k = 0;
+                while(k == 0) {
+                    k = (char)EM_ASM_INT({
+                        if (window.keyBuffer && window.keyBuffer.length > 0) {
+                            return window.keyBuffer.shift().charCodeAt(0);
+                        }
+                        return 0;
+                    });
+                    if(k == 0) emscripten_sleep(50);
+                }
+                movimento = k;
+                printf("%c\n", k); // Echo da tecla
+#else
                 scanf(" %c", &movimento);
+#endif
 
                 if(movimento == 'Q' || movimento == 'q')
                 {
