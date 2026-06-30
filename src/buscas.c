@@ -38,7 +38,8 @@ void AnimaSolucao(int matrizInicial[3][3], Estado e, int visitados, double tempo
         delay_ms(600);
     }
 
-    printf("\n\nSolucao concluida! Pressione ENTER para sair...");
+    printf("\n\nSolucao concluida! Pressione ENTER para sair...\n");
+    fflush(stdout);
 }
 
 // Algoritmo de Busca em Largura (BFS) usando Fila
