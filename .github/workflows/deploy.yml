@@ -27,7 +27,7 @@ jobs:
       - name: Compile C to WebAssembly
         run: |
           mkdir -p public
-          emcc src/*.c -o public/index.html --shell-file shell.html -s ASYNCIFY=1 -O2
+          emcc src/*.c -o public/index.html --shell-file shell.html -s ASYNCIFY=1 -s ALLOW_MEMORY_GROWTH=1 -O2
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
