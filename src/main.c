@@ -54,6 +54,7 @@ int main()
                         printf("\n*********************************************\n" RESET);
                         printEstado(estado);
                         printf("\nPressione qualquer tecla para continuar...");
+                        fflush(stdout);
                         #if defined(_WIN32) || defined(__EMSCRIPTEN__)
                             _getch();
                         #else
@@ -83,6 +84,7 @@ int main()
                 printEstado(solucao);
 
                 printf("\nPressione ENTER para iniciar a busca da IA...");
+                fflush(stdout);
                 #if defined(__EMSCRIPTEN__)
                 _getch();
                 #else

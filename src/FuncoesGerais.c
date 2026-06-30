@@ -272,6 +272,7 @@ int MenuPrincipalInterativo() {
         
         printf("   " BLUE "+------------------------------------------+" RESET "\n");
         printf("\n   " CYAN ">> Use as setas e aperte ENTER ou digite o indice correspondente: " RESET);
+        fflush(stdout);
 
         int tecla = _getch();
         if (tecla == 0 || tecla == 224) { 
@@ -306,6 +307,7 @@ int MenuIAInterativo() {
         printf("   " YELLOW "|" RESET "  %s [" RED "3" RESET "] VOLTAR AO MENU PRINCIPAL         " YELLOW "|" RESET "\n", (posicao == 2) ? BOLD YELLOW "->" RESET : "  ");
         
         printf("   " YELLOW "+------------------------------------------+" RESET "\n");
+        fflush(stdout);
 
         int tecla = _getch();
         if (tecla == 0 || tecla == 224) {
@@ -340,6 +342,7 @@ int MenuMovimentoInterativo(int *opcoes, int estado[3][3], int solucao[3][3]) {
     printf("\nMover peca: ");
     for(int i=0; i<qtd; i++) printf("[%d] ", validos[i]);
     printf(RED "\n[0] VOLTAR AO MENU" RESET "\n");
+    fflush(stdout);
 
     while(1) {
         int tecla = _getch();
