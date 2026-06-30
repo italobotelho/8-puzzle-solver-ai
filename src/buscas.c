@@ -65,6 +65,9 @@ void BuscaEmLargura(int matrizInicial[3][3]) {
         if (visitados % 200 == 0) {
             double tempo = (double)(clock() - inicio) / CLOCKS_PER_SEC;
             printf("\r" BOLD GREEN "[BFS]" RESET " Analisados: " CYAN "%6d" RESET " | Profundidade: " YELLOW "%2d" RESET " | Tempo: %.1fs", visitados, atual.profundidade, tempo);
+            #if defined(__EMSCRIPTEN__)
+            printf("\n");
+            #endif
             fflush(stdout);
             delay_ms(0);
         }
@@ -135,6 +138,9 @@ void BuscaProfundidadeIterativa(int matrizInicial[3][3]) {
             if (visitados % 200 == 0) {
                 double tempo = (double)(clock() - inicio) / CLOCKS_PER_SEC;
                 printf("\r   " BOLD YELLOW "[Nivel %d]" RESET " Analisados: " CYAN "%5d" RESET " | Tempo: %.1fs", limite, visitados, tempo);
+                #if defined(__EMSCRIPTEN__)
+                printf("\n");
+                #endif
                 fflush(stdout);
                 delay_ms(0);
             }
