@@ -116,9 +116,19 @@
 
                 return function(text) {
                     if (arguments.length > 1) text = Array.prototype.slice.call(arguments).join(' ');
-                    console.log(text);
+                    
                     if (element) {
-                        element.innerHTML += ansiToHtml(text) + "\n";
+                        if (text.startsWith('\r')) {
+                            // Encontra a última quebra de linha (ignorando a que fica no final da string atual)
+                            let lastNewline = element.innerHTML.lastIndexOf('\n', element.innerHTML.length - 2);
+                            if (lastNewline !== -1) {
+                                element.innerHTML = element.innerHTML.substring(0, lastNewline + 1) + ansiToHtml(text.substring(1)) + "\n";
+                            } else {
+                                element.innerHTML = ansiToHtml(text.substring(1)) + "\n";
+                            }
+                        } else {
+                            element.innerHTML += ansiToHtml(text) + "\n";
+                        }
                         element.scrollTop = element.scrollHeight;
                     }
                 };
